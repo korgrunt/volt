@@ -1,4 +1,5 @@
 
+
         var scene = new THREE.Scene();
   			var camera = new THREE.PerspectiveCamera( 5, window.innerWidth/window.innerHeight, 0.1, 1000 );
         var cameraTarget = new THREE.Mesh( new THREE.CubeGeometry(0,0,0));
@@ -90,6 +91,47 @@ chaque elmt est relier a un élément, qui se trouve dans le tableau content. il
 l'orientation corespond au sens dans lequel le elmt est orienté, devant, dérriere, a gauche, a droite, il a 4 orientation possible
 */
 generateMap(level, content, disposition);
+generatePlayer([-5,-5], 3.5);
+
+
+ /*
+persoso();
+*/
+function generatePlayer(StartCoordonate, volt){
+
+  var power = volt;
+
+  function createModel(position){
+    var geometry = new THREE.BoxGeometry( 0.9, 0.9, 1.8 );
+    var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+    var cube = new THREE.Mesh( geometry, material );
+
+    cube.position.x = StartCoordonate[0];
+    cube.position.y = StartCoordonate[1];
+    cube.position.z = 1.4;
+    cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add( cube );
+
+  }
+
+  function createCtrl(){
+
+  }
+
+  function createAction(){
+
+  }
+
+  function createReaction(){
+
+  }
+
+createModel(StartCoordonate);
+
+};
+
+
 
 function generateMap(level, content, disposition){
 
