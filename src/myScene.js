@@ -1,4 +1,31 @@
 
+var startPosX = -5;
+var startPosY = 5;
+/* PARTIE RAYCASTING
+*/
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
+function onMouseMove( event ) {
+
+	// calculate mouse position in normalized device coordinates
+	// (-1 to +1) for both components
+
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+}
+
+/* FIN  PARTIE RAYCASTING
+*/
+
+function getAnObject(objMesh){
+  scene.updateMatrixWorld(true);
+  var position = new THREE.Vector3();
+  position.getPositionFromMatrix( objMesh.matrixWorld );
+  alert(position.x + ',' + position.y + ',' + position.z);
+}
+
 
         var scene = new THREE.Scene();
   			var camera = new THREE.PerspectiveCamera( 5, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -46,44 +73,70 @@ var level = ["level 0", 1, 5, 2];
 pour garder la même taille des cubes tout au long des niveaux*/
 
 var content = {
-    "1":  '{"elmt" : 1, "objPath":"/dir/potar_1.obj", "mtlPath":"/dir/material.mtl", "type":1}',
+  "1":  '{"elmt" : 1, "objPath":"/dir/potar_1.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "2":  '{"elmt" : 2, "objPath":"/dir/potar_2.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "3":  '{"elmt" : 3, "objPath":"/dir/potar_3.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "4":  '{"elmt" : 4, "objPath":"/dir/led_1.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "5":  '{"elmt" : 5, "objPath":"/dir/led_2.obj", "mtlPath":"/dir/material.mtl", "type":1}',
-
     "6":  '{"elmt" : 6, "objPath":"/dir/condens_1.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "7":  '{"elmt" : 7, "objPath":"/dir/condens_2.obj", "mtlPath":"/dir/material.mtl", "type":1}',
     "8":  '{"elmt" : 8, "objPath":"/dir/condens_3.obj", "mtlPath":"/dir/material.mtl", "type":1}',
-
     "9":  '{"elmt" : 9, "objPath":"plus", "mtlPath":"/dir/material.mtl", "type":1}',
     "10": '{"elmt" : 10, "objPath":"moins", "mtlPath":"/dir/material.mtl", "type":1}',
-
     "11": '{"elmt" : 11, "objPath":"conduc", "mtlPath":"/dir/material.mtl", "type":1}',
     "12": '{"elmt" : 12, "objPath":"isolate", "mtlPath":"/dir/material.mtl", "type":1}'
-
 };
 /* ICI On donne un premier tableau d'objet qui comporte la liste et le chemin des élément présent sur la carte, chaque élément peut être
 présent sur la carte en 1 ou plusieur exemplaire instancié*/
 
 var disposition = [
     [
-      {"elmt" :1,"orientation":1}, {"elmt" :5,"orientation":2}, {"elmt" :2,"orientation":3}, {"elmt" :3,"orientation":3}, {"elmt" :6,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :1,"orientation":1},
+      {"elmt" :5,"orientation":2},
+      {"elmt" :2,"orientation":3},
+      {"elmt" :3,"orientation":3},
+      {"elmt" :6,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ],
     [
-      {"elmt" :10,"orientation":1}, {"elmt" :5,"orientation":2}, {"elmt" :4,"orientation":3}, {"elmt" :2,"orientation":3}, {"elmt" :3,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :10,"orientation":1},
+      {"elmt" :5,"orientation":2},
+      {"elmt" :4,"orientation":3},
+      {"elmt" :2,"orientation":3},
+      {"elmt" :3,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ],
     [
-      {"elmt" :11,"orientation":1}, {"elmt" :5,"orientation":2}, {"elmt" :8,"orientation":3}, {"elmt" :2,"orientation":3}, {"elmt" :7,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :11,"orientation":1},
+      {"elmt" :5,"orientation":2},
+      {"elmt" :8,"orientation":3},
+      {"elmt" :2,"orientation":3},
+      {"elmt" :7,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ],
     [
-      {"elmt" :1,"orientation":1}, {"elmt" :5,"orientation":2}, {"elmt" :6,"orientation":3}, {"elmt" :2,"orientation":3}, {"elmt" :9,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :1,"orientation":1},
+      {"elmt" :5,"orientation":2},
+      {"elmt" :6,"orientation":3},
+      {"elmt" :2,"orientation":3},
+      {"elmt" :9,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ],
     [
-      {"elmt" :1,"orientation":1}, {"elmt" :5,"orientation":2}, {"elmt" :5,"orientation":3}, {"elmt" :2,"orientation":3}, {"elmt" :3,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :1,"orientation":1},
+      {"elmt" :5,"orientation":2},
+      {"elmt" :5,"orientation":3},
+      {"elmt" :2,"orientation":3},
+      {"elmt" :3,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ],
     [
-      {"elmt" :11,"orientation":1}, {"elmt" :8,"orientation":2}, {"elmt" :7,"orientation":3}, {"elmt" :12,"orientation":3}, {"elmt" :3,"orientation":1}, {"elmt" :5,"orientation":1}
+      {"elmt" :11,"orientation":1},
+      {"elmt" :8,"orientation":2},
+      {"elmt" :7,"orientation":3},
+      {"elmt" :12,"orientation":3},
+      {"elmt" :3,"orientation":1},
+      {"elmt" :5,"orientation":1}
     ]
 ];
 /* Et ici, On donne un "tableau de tableau d'objet"; "objet" = elmt, "tableau d'objet" = ligne de elmt et "tableau de tableau d'objet" = map entiere
@@ -91,17 +144,18 @@ chaque elmt est relier a un élément, qui se trouve dans le tableau content. il
 l'orientation corespond au sens dans lequel le elmt est orienté, devant, dérriere, a gauche, a droite, il a 4 orientation possible
 */
 generateMap(level, content, disposition);
-generatePlayer([-5,-5], 3.5);
+generatePlayer([startPosX, startPosY], 3.5);
 
 
  /*
 persoso();
 */
+
 function generatePlayer(StartCoordonate, volt){
 
   var power = volt;
 
-  function createModel(position){
+  function createModel(){
     var geometry = new THREE.BoxGeometry( 0.9, 0.9, 1.8 );
     var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
     var cube = new THREE.Mesh( geometry, material );
@@ -155,8 +209,8 @@ function generateMap(level, content, disposition){
 
 
 /*******************GENERATION D4UNE MATRICE DE LONGUEUR de coter egale a 10************************/
-        var increm = -5;
-        var ligne = -5;
+function generatePlateau(increm,ligne){
+
         while (ligne <= 5){
 
           while (increm <= 5){
@@ -175,6 +229,8 @@ function generateMap(level, content, disposition){
           increm = -5;
           ligne++;
         }
+}
+generatePlateau(-5, -5);
 /*********************************************************************************************/
 
 
@@ -194,6 +250,22 @@ scene.rotation.z = 40;
 */
 camera.lookAt( cameraTarget.position );
 
+/* PARTIE RAYCASTING
+*/
+// update the picking ray with the camera and mouse position
+raycaster.setFromCamera( mouse, camera );
+
+// calculate objects intersecting the picking ray
+var intersects = raycaster.intersectObjects( scene.children );
+
+for ( var i = 0; i < intersects.length; i++ ) {
+
+  intersects[ i ].object.material.color.set( 0xff0000 );
+
+}
+/*   FIN PARTIE RAYCASTING
+*/
+
 
           renderer.shadowCameraNear = 3;
 
@@ -205,4 +277,35 @@ camera.lookAt( cameraTarget.position );
 
   			};
 
+
+
+
+        	renderer.render( scene, camera );
+
   			render();
+
+
+        /* PARTIE RAYCASTING
+        */
+
+window.addEventListener( 'mousemove', onMouseMove, false );
+
+window.requestAnimationFrame(render);
+
+/*   FIN    PARTIE RAYCASTING
+*/
+
+
+
+simulateMovePerso();
+function simulateMovePerso(){
+
+    setTimeout(movePerso,5000);
+
+
+}
+function movePerso(){
+  cube.position.x = 2.5;
+  cube.position.z = 4;
+  console.log("perso bouger sur axe X");
+  }
