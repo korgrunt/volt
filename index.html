@@ -7,6 +7,9 @@
 			body { margin: 0; }
 			canvas { width: 100%; height: 100% }
 		</style>
+		<link rel="stylesheet" type="text/css" href="public/guiCss.css">
+
+
 	</head>
 	<body>
 
@@ -18,8 +21,9 @@
 		-->
     <!--APPEL FRAMEWORK THREE JS-->
 		<script src="lib/three.js"></script>
-    <!--APPEL LOADER OBJ-->
+		<!--APPEL LOADER OBJ-->
     <script src="lib/OBJLoader.js"></script>
+
 
 		<!------------------------------------------------------------------>
 		<!------------------------------------------------------------------>
@@ -31,8 +35,18 @@
 		# PRETE A SUPPORTER LE JEU
 		#
 		-->
-    <!--APPEL SCENE 3D-->
-		<script src="src/myScene.js"></script>
+
+
+		<!--APPEL SCENE 3D-->
+	<script type="text/javascript" src="src/removeStartMenu.js"></script>
+		<!--APPEL Different mode de jeu-->
+		<script type="text/javascript" src="src/lauchArcade.js"></script>
+		<script type="text/javascript" src="src/lauchOption.js"></script>
+		<script type="text/javascript" src="src/lauchPlayer.js"></script>
+		<script type="text/javascript" src="src/lauchMulti.js"></script>
+		<!--APPEL Menu du jeu-->
+		<script type="text/javascript" src="src/startMenu.js"></script>
+
 
 	</body>
 </html>

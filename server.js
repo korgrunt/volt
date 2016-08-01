@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 
 app.use("/public", express.static(__dirname + '/public'));
+app.use("/assets", express.static(__dirname + '/assets'));
 app.use("/lib", express.static(__dirname + '/lib'));
 app.use("/src", express.static(__dirname + '/src'));
 
