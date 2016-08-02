@@ -1,6 +1,10 @@
 
 function lauchArcade(){
   removeStartMenu();
+  GUIplay();
+  GUIsetting();
+
+
   var startPosX = -5;
   var startPosY = 5;
   /* PARTIE RAYCASTING
