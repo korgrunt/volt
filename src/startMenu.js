@@ -1,47 +1,40 @@
+  "use strict";
+
 createStartMenu();
+
+function addEvent(element, evnt, funct){
+  if (element.attachEvent){
+   return element.attachEvent('on'+evnt, funct);
+ }else{
+   return element.addEventListener(evnt, funct, false);
+   }
+}
+
 function createStartMenu(){
+  // creation du menu et des bouton
 
   var menuStart= document.createElement('main');
-  menuStart.id = "startMenu"; 
+  menuStart.id = "startMenu";
+
   var img= document.createElement('img');
   var imgHandle= document.createElement('div');
   img.src= "assets/guiStart0.png";
   img.id= "player";
-    if (imgHandle.addEventListener){
-      imgHandle.addEventListener('click', lauchPlayer, false);
-    } else if (imgHandle.attachEvent) {
-      imgHandle.attachEvent('onclick', lauchPlayer);
-    }
 
   var img1= document.createElement('img');
   var imgHandle1= document.createElement('div');
   img1.src= "assets/guiStart1.png";
-    img.id= "arcade";
-  if (imgHandle1.addEventListener){
-    imgHandle1.addEventListener('click', lauchArcade, false);
-  } else if (imgHandle1.attachEvent) {
-    imgHandle1.attachEvent('onclick', lauchArcade);
-  }
+  img1.id= "arcade";
 
   var img2= document.createElement('img');
   var imgHandle2= document.createElement('div');
   img2.src= "assets/guiStart2.png";
-    img.id= "multi";
-  if (imgHandle2.addEventListener){
-    imgHandle2.addEventListener('click', lauchMulti, false);
-  } else if (imgHandle2.attachEvent) {
-    imgHandle2.attachEvent('onclick', lauchMulti);
-  }
+  img2.id= "multi";
 
   var img3= document.createElement('img');
   var imgHandle3= document.createElement('div');
   img3.src= "assets/guiStart3.png";
-    img.id= "option";
-  if (imgHandle3.addEventListener){
-    imgHandle3.addEventListener('click', lauchOption, false);
-  } else if (imgHandle3.attachEvent) {
-    imgHandle3.attachEvent('onclick', lauchOption);
-  }
+  img3.id= "option";
 
   imgHandle.appendChild(img);
   imgHandle1.appendChild(img1);
@@ -54,4 +47,25 @@ function createStartMenu(){
   menuStart.appendChild(imgHandle3);
 
   document.body.appendChild(menuStart);
+
+  addEvent(
+      document.getElementById('player'),
+      'click',
+      function test() { chooseMode("OnePlayer"); }
+  );
+  addEvent(
+      document.getElementById('arcade'),
+      'click',
+      function test() { chooseMode("Arcade"); }
+  );
+  addEvent(
+      document.getElementById('multi'),
+      'click',
+      function test() { chooseMode("Multi"); }
+  );
+  addEvent(
+      document.getElementById('option'),
+      'click',
+      function test() { chooseMode("Option"); }
+  );
 }

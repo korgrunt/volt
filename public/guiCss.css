@@ -49,8 +49,9 @@ main div:nth-child(3) {
 
 #gui-setting{
   position: fixed;
-  top: 50%;
+  top: 98%;
   left: 50%;
   margin-top: -50px;
   margin-left: -100px;
+  text-align: center;
 }
